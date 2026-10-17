@@ -48,7 +48,7 @@ export function Newsletter() {
                 You’re on the list — in theory.
               </p>
               <p className="mt-3 text-sm leading-relaxed text-bone/65">
-                <span className="text-bone">{submitted}</span> passed validation. This is a demo storefront, so the address wasn’t sent to a mailing list or stored anywhere.
+                <span className="text-bone">{submitted}</span> passed validation. This is a showcase site, so the address wasn’t sent to a mailing list or stored anywhere.
               </p>
               <button type="button" onClick={() => (setSubmitted(null), setEmail(''))} className="mt-5 text-[11px] font-semibold tracking-[0.16em] text-bone/60 uppercase underline-offset-4 hover:text-bone hover:underline">
                 Use a different email

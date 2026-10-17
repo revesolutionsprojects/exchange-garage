@@ -36,11 +36,11 @@ export function Hero({ onScrollNext }: { onScrollNext: () => void }) {
           <div className="animate-fade-up [animation-delay:650ms]">
             <p className="max-w-md text-base text-bone/80 sm:text-lg">{hero.subhead}</p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <Link to="/shop" className="btn-light">
-                Shop the collection <ArrowRight size={14} />
+              <Link to="/collection" className="btn-light">
+                Explore the collection <ArrowRight size={14} />
               </Link>
-              <Link to="/shop?filter=new" className="btn-ghost-light">
-                Explore new arrivals
+              <Link to="/collection?filter=new" className="btn-ghost-light">
+                View new arrivals
               </Link>
             </div>
           </div>

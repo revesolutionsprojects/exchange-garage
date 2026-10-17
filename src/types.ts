@@ -1,6 +1,6 @@
 export type CategoryId = 'tshirts' | 'shirts' | 'hoodies' | 'jackets' | 'bottoms'
 
-/** Broad colour groups used by the shop's colour filter. */
+/** Broad colour groups used by the collection's colour filter. */
 export type ColorFamily =
   | 'black'
   | 'white'

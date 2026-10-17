@@ -33,7 +33,7 @@ export function ProductPage({ id, initialColor }: { id: string; initialColor: st
   const product = getProduct(id)
   const [colorSlug, setColorSlug] = useState(() => (product ? getColor(product, initialColor ?? undefined).slug : ''))
 
-  if (!product) return <NotFoundPage title="Product not found" message="This product isn’t in the demo catalogue. It may have been renamed or removed." />
+  if (!product) return <NotFoundPage title="Product not found" message="This piece isn’t in the collection. It may have been renamed or removed." />
 
   const color = getColor(product, colorSlug)
   const tryOn = studioLinkFor(product.id, color.slug)
@@ -58,7 +58,7 @@ export function ProductPage({ id, initialColor }: { id: string; initialColor: st
               <ChevronRight size={12} />
             </li>
             <li>
-              <Link to={`/shop?category=${product.category}`} className="hover:text-ink">
+              <Link to={`/collection?category=${product.category}`} className="hover:text-ink">
                 {categoryLabel(product.category)}
               </Link>
             </li>
@@ -117,7 +117,7 @@ export function ProductPage({ id, initialColor }: { id: string; initialColor: st
                   <Shirt size={15} /> Try it in the Fitting Room
                 </Link>
               )}
-              <Link to={`/shop?category=${product.category}`} className="btn-ghost-dark">
+              <Link to={`/collection?category=${product.category}`} className="btn-ghost-dark">
                 More {categoryLabel(product.category)} <ArrowRight size={14} />
               </Link>
             </div>

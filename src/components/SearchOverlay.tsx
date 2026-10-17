@@ -17,7 +17,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
 
   const submit = (e: FormEvent) => {
     e.preventDefault()
-    navigate(`/shop${q ? `?q=${encodeURIComponent(q)}` : ''}`)
+    navigate(`/collection${q ? `?q=${encodeURIComponent(q)}` : ''}`)
     onClose()
   }
 
@@ -92,7 +92,7 @@ export function SearchOverlay({ open, onClose }: { open: boolean; onClose: () =>
               <button
                 type="button"
                 onClick={() => {
-                  navigate(results.length ? `/shop?q=${encodeURIComponent(q)}` : '/shop')
+                  navigate(results.length ? `/collection?q=${encodeURIComponent(q)}` : '/collection')
                   onClose()
                 }}
                 className="mt-6 inline-flex items-center gap-2 text-[12px] font-semibold tracking-[0.16em] uppercase hover:text-signal">

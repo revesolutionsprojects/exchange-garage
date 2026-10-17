@@ -8,13 +8,14 @@ import { HomePage } from './pages/HomePage'
 import { InfoPage } from './pages/InfoPage'
 import { NotFoundPage } from './pages/NotFoundPage'
 import { ProductPage } from './pages/ProductPage'
-import { ShopPage } from './pages/ShopPage'
+import { CollectionPage } from './pages/CollectionPage'
 import { StudioPage } from './pages/StudioPage'
 
 function Page({ route }: { route: Route }) {
   const [section, param] = route.segments
   if (!section) return <HomePage />
-  if (section === 'shop') return <ShopPage route={route} />
+  // '/shop' is kept as an alias so older links still open the collection.
+  if (section === 'collection' || section === 'shop') return <CollectionPage route={route} />
   if (section === 'product' && param) return <ProductPage key={param} id={param} initialColor={route.query.get('color')} />
   if (section === 'studio') return <StudioPage route={route} />
   if (section === 'info' && param) return <InfoPage slug={param} />

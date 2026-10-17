@@ -59,7 +59,7 @@ export const FeaturedCollection = forwardRef<HTMLDivElement>(function FeaturedCo
         </div>
 
         <div className="mt-14 flex justify-center">
-          <Link to={tab === 'featured' ? '/shop?filter=featured' : `/shop?category=${tab}`} className="btn-ghost-dark">
+          <Link to={tab === 'featured' ? '/collection?filter=featured' : `/collection?category=${tab}`} className="btn-ghost-dark">
             View all {tab === 'featured' ? 'featured' : categories.find((c) => c.id === tab)?.label} <ArrowRight size={14} />
           </Link>
         </div>

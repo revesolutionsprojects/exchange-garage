@@ -22,7 +22,7 @@ function readFilters(query: URLSearchParams): Filters {
 
 function writeFilters(f: Filters) {
   navigate(
-    `/shop${buildQuery({
+    `/collection${buildQuery({
       q: f.q.trim() && f.q,
       category: f.category,
       color: f.colors.join(','),
@@ -37,12 +37,12 @@ function pageTitle(f: Filters): string {
   if (f.flag === 'new' && !f.category) return 'New Arrivals'
   if (f.category) return categoryLabel(f.category)
   if (f.q) return 'Search'
-  return 'Shop All'
+  return 'The Collection'
 }
 
 const filterHeading = 'text-[11px] font-semibold tracking-[0.18em] uppercase text-ink/50'
 
-export function ShopPage({ route }: { route: Route }) {
+export function CollectionPage({ route }: { route: Route }) {
   const filters = readFilters(route.query)
   const results = applyFilters(products, filters)
   const [panelOpen, setPanelOpen] = useState(false)
@@ -151,7 +151,7 @@ export function ShopPage({ route }: { route: Route }) {
     <div className="mx-auto max-w-screen-2xl px-4 pt-10 pb-24 sm:px-6 sm:pt-14 lg:px-10">
       <header className="flex flex-col gap-6 border-b border-ink/10 pb-8 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <p className="eyebrow text-ink/45">Exchange Garage — Demo catalogue</p>
+          <p className="eyebrow text-ink/45">Exchange Garage — Collection 01</p>
           <h1 className="display mt-3 text-[clamp(3.2rem,8vw,6.5rem)]">{pageTitle(filters)}</h1>
         </div>
         <form
@@ -163,11 +163,11 @@ export function ShopPage({ route }: { route: Route }) {
           className="flex w-full items-center gap-2 border-b border-ink/30 focus-within:border-ink lg:w-80"
         >
           <Search size={16} aria-hidden="true" className="text-ink/50" />
-          <label htmlFor="shop-search" className="sr-only">
+          <label htmlFor="collection-search" className="sr-only">
             Search products by name
           </label>
           <input
-            id="shop-search"
+            id="collection-search"
             type="search"
             value={searchText}
             onChange={(e) => {

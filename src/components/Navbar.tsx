@@ -7,11 +7,11 @@ import { Wordmark } from './Wordmark'
 
 export const NAV_LINKS = [
   { label: 'Home', to: '/' },
-  { label: 'Shop All', to: '/shop' },
-  { label: 'T-Shirts', to: '/shop?category=tshirts' },
-  { label: 'Shirts', to: '/shop?category=shirts' },
-  { label: 'Bottoms', to: '/shop?category=bottoms' },
-  { label: 'New Arrivals', to: '/shop?filter=new' },
+  { label: 'Collection', to: '/collection' },
+  { label: 'T-Shirts', to: '/collection?category=tshirts' },
+  { label: 'Shirts', to: '/collection?category=shirts' },
+  { label: 'Bottoms', to: '/collection?category=bottoms' },
+  { label: 'New Arrivals', to: '/collection?filter=new' },
   { label: 'Fitting Room', to: '/studio' },
 ]
 

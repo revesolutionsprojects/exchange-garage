@@ -22,22 +22,22 @@ export function Footer() {
             <p className="mt-4 max-w-xs text-sm text-bone/55">Streetwear built different, worn your way.</p>
           </div>
 
-          <nav aria-label="Shop" className="lg:col-span-2">
-            <h2 className={col}>Shop</h2>
+          <nav aria-label="Collection" className="lg:col-span-2">
+            <h2 className={col}>Collection</h2>
             <ul className="mt-5 space-y-3">
               <li>
-                <Link to="/shop" className={link}>
-                  Shop All
+                <Link to="/collection" className={link}>
+                  Full Collection
                 </Link>
               </li>
               <li>
-                <Link to="/shop?filter=new" className={link}>
+                <Link to="/collection?filter=new" className={link}>
                   New Arrivals
                 </Link>
               </li>
               {categories.map((c) => (
                 <li key={c.id}>
-                  <Link to={`/shop?category=${c.id}`} className={link}>
+                  <Link to={`/collection?category=${c.id}`} className={link}>
                     {c.label}
                   </Link>
                 </li>

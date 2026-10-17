@@ -83,8 +83,8 @@ export function NewArrivals() {
             ))}
           </ul>
 
-          <Link to="/shop?filter=new" className="btn-light mt-10 self-start">
-            Shop new arrivals <ArrowRight size={14} />
+          <Link to="/collection?filter=new" className="btn-light mt-10 self-start">
+            View new arrivals <ArrowRight size={14} />
           </Link>
         </div>
       </div>

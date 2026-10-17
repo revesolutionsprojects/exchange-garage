@@ -13,11 +13,11 @@ export function CategorySection() {
       <SectionHeading
         id="categories-title"
         index="01"
-        eyebrow="Shop by category"
+        eyebrow="Browse by category"
         title="Find your uniform"
         action={
-          <Link to="/shop" className="link-underline self-start text-[12px] font-semibold tracking-[0.16em] uppercase sm:self-auto">
-            Shop all categories
+          <Link to="/collection" className="link-underline self-start text-[12px] font-semibold tracking-[0.16em] uppercase sm:self-auto">
+            View the full collection
           </Link>
         }
       />
@@ -30,7 +30,7 @@ export function CategorySection() {
               key={c.id}
               className={`w-[72%] shrink-0 snap-start sm:w-auto ${i < 2 ? 'sm:col-span-3' : 'sm:col-span-2'} lg:col-span-1`}
             >
-              <Link to={`/shop?category=${c.id}`} className="group relative block aspect-[3/4] overflow-hidden bg-ink text-bone sm:aspect-[4/5] lg:aspect-[3/4.6]">
+              <Link to={`/collection?category=${c.id}`} className="group relative block aspect-[3/4] overflow-hidden bg-ink text-bone sm:aspect-[4/5] lg:aspect-[3/4.6]">
                 <SafeImage
                   src={c.image}
                   srcSet={c.srcSet}

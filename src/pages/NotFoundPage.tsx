@@ -8,8 +8,8 @@ export function NotFoundPage({ title = 'Page not found', message = 'This page do
       <h1 className="display mt-4 text-[clamp(3.5rem,10vw,8rem)]">{title}</h1>
       <p className="mt-5 max-w-md text-ink/60">{message}</p>
       <div className="mt-8 flex flex-wrap gap-3">
-        <Link to="/shop" className="btn-dark">
-          Shop all <ArrowRight size={14} />
+        <Link to="/collection" className="btn-dark">
+          View the collection <ArrowRight size={14} />
         </Link>
         <Link to="/" className="btn-ghost-dark">
           Back home

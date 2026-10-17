@@ -19,7 +19,7 @@ npm run preview      # serve the production build
 npm run generate:images   # rebuild placeholder product renders (see below)
 ```
 
-The build uses a relative base path and hash routing (`#/shop`, `#/product/…`), so `dist/`
+The build uses a relative base path and hash routing (`#/collection`, `#/product/…`), so `dist/`
 can be uploaded to any static host or sub-folder without rewrite rules.
 
 ## What's included
@@ -29,7 +29,7 @@ can be uploaded to any static host or sub-folder without rewrite rules.
 | **Colour switching (core feature)** | Hovering a product card reveals a swatch panel. Resting on or clicking a swatch swaps to that colour's own image (crossfade) and updates the colour name. The selection stays after the pointer leaves. On touch devices the swatches are always visible and tappable. Keyboard: Tab into a card, then use the arrow keys. |
 | **Fitting Room** (`#/studio` and a homepage section) | Dress a model with any headwear, layer, top, bottom and shoes. Tap a piece on the model, or use the hotspots, to swap it. Colours change live. Turn the model front/back (button, or drag sideways), tuck the top in, change model tone and backdrop, shuffle, reset, save looks (this browser only) and copy a shareable link to a look. "Try it on" on product cards and pages opens it wearing that piece. |
 | Product page | Gallery (front / back / detail, click to zoom) that keeps the same view when you change colour, available sizes (information only), "Try it in the Fitting Room", details, related products. The colour is kept in the URL, so links can be shared. |
-| Shop / search | Search by name, filter by category, colour family and collection (New / Featured), sort by featured, newest or name, active-filter chips, empty state and reset. All state lives in the URL. Header search overlay with live results. |
+| Collection / search | Search by name, filter by category, colour family and collection (New / Featured), sort by featured, newest or name, active-filter chips, empty state and reset. All state lives in the URL. Header search overlay with live results. |
 | Homepage | Announcement bar (configurable), sticky nav plus mobile menu, cinematic hero, category tiles, featured grid with category tabs, Fitting Room, new-arrivals editorial, brand story, newsletter (validation and success state, nothing sent), footer. |
 | Quality | Responsive from 360px up. Visible focus states, focus handling in dialogs, skip link. Respects `prefers-reduced-motion`. Branded fallback when an image fails to load. Placeholder pages for contact, privacy and terms, so no footer link is dead. |
 
@@ -46,7 +46,7 @@ src/
   components/           ← ProductCard, ColorSwatches, ProductGallery, CategorySection,
                           Navbar, SearchOverlay, MobileMenu, Hero, …
   components/studio/    ← FittingRoom UI, ModelFigure, figure.ts (model + garment artwork)
-  pages/                ← Home, Shop, Product, Studio, Info (policy placeholders), NotFound
+  pages/                ← Home, Collection, Product, Studio, Info (policy placeholders), NotFound
 scripts/generate-product-images.ts   ← placeholder garment renders
 public/images/          ← editorial photography (local copies)
 public/products/        ← generated per-colour product images
@@ -103,5 +103,5 @@ for every colour of a product, so the crossfade reads as a colour change rather 
 - Saved Fitting Room looks are stored only in the current browser (localStorage). Shared links work anywhere.
 - The Fitting Room model is a stylised illustration, not a photographic try-on. Garments are drawn shapes coloured to match each colourway.
 - Search matches product names, categories and colour names. There's no fuzzy matching or typo tolerance.
-- Hash-based URLs (`/#/shop`) are used for zero-config hosting. Moving to clean URLs needs a router with server rewrites.
+- Hash-based URLs (`/#/collection`) are used for zero-config hosting. Moving to clean URLs needs a router with server rewrites.
 - No automated test suite. Interactions were checked manually in Chrome at desktop, tablet and mobile sizes.

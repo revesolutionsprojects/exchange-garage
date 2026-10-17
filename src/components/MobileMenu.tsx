@@ -53,11 +53,11 @@ export function MobileMenu({ open, onClose, links, isActive }: Props) {
         </ul>
 
         <div className="mt-10 border-t border-bone/10 pt-6">
-          <p className="eyebrow text-bone/45">Shop by category</p>
+          <p className="eyebrow text-bone/45">Browse by category</p>
           <ul className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-sm">
             {categories.map((c) => (
               <li key={c.id}>
-                <Link to={`/shop?category=${c.id}`} onClick={onClose} className="text-bone/75 hover:text-bone">
+                <Link to={`/collection?category=${c.id}`} onClick={onClose} className="text-bone/75 hover:text-bone">
                   {c.label}
                 </Link>
               </li>
