@@ -2,12 +2,14 @@ import { ArrowRight, ArrowUpRight } from 'lucide-react'
 import { products } from '../data/products'
 import { categoryLabel, site } from '../data/site'
 import { useReveal } from '../hooks/useReveal'
+import { useScrollMarquee } from '../hooks/useScrollMarquee'
 import { Link } from '../lib/router'
 import { SafeImage } from './SafeImage'
 
 const MARQUEE = ['EXCHANGE GARAGE', 'THE LATEST DROP', 'BUILT DIFFERENT', 'WORN YOUR WAY']
 
 function Marquee() {
+  const trackRef = useScrollMarquee<HTMLDivElement>()
   const row = (hidden: boolean) => (
     <div className="flex shrink-0 items-center" aria-hidden={hidden || undefined}>
       {MARQUEE.map((t) => (
@@ -20,7 +22,7 @@ function Marquee() {
   )
   return (
     <div className="flex overflow-hidden border-y border-bone/10 py-5 select-none">
-      <div className="flex animate-marquee will-change-transform motion-reduce:animate-none">
+      <div ref={trackRef} className="flex will-change-transform">
         {row(false)}
         {row(true)}
       </div>

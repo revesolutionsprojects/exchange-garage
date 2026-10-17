@@ -1,10 +1,13 @@
 import { categories, site } from '../data/site'
+import { useScrollFill } from '../hooks/useScrollFill'
 import { Link } from '../lib/router'
 import { INFO_PAGES } from '../pages/InfoPage'
 
 const year = new Date().getFullYear()
+const WORDMARK = 'EXCHANGE GARAGE'
 
 export function Footer() {
+  const fillRef = useScrollFill<HTMLParagraphElement>()
   const col = 'eyebrow text-bone/60'
   const link = 'text-sm text-bone/75 transition-colors hover:text-bone'
 
@@ -74,8 +77,17 @@ export function Footer() {
 
         {/* Sized from the container's width (cqw), not the window's, so it always fits edge to edge. */}
         <div className="@container mt-20">
-          <p aria-hidden="true" className="display overflow-hidden text-center text-[14.4cqw] leading-[0.8] whitespace-nowrap text-bone/[0.06] select-none">
-            EXCHANGE GARAGE
+          {/* Letters light up one by one as the page reaches the bottom (see useScrollFill). */}
+          <p ref={fillRef} aria-hidden="true" className="display overflow-hidden text-center text-[14.4cqw] leading-[0.8] whitespace-nowrap text-bone select-none">
+            {[...WORDMARK].map((ch, i) =>
+              ch === ' ' ? (
+                ' '
+              ) : (
+                <span key={i} data-letter className="opacity-[0.06] transition-opacity duration-300 ease-out">
+                  {ch}
+                </span>
+              ),
+            )}
           </p>
         </div>
 

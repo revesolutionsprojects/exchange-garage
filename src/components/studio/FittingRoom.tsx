@@ -9,6 +9,7 @@ import {
   SLOTS,
   TONES,
   TUCKABLE,
+  type Look,
   type LookPick,
   type Slot,
   type StudioState,
@@ -55,6 +56,10 @@ function persistSaved(list: SavedLook[]) {
 }
 
 const random = <T,>(list: T[]): T => list[Math.floor(Math.random() * list.length)]
+const BARE: Look = { headwear: null, layer: null, top: null, bottom: null, shoes: null }
+
+/** Entrance: the model starts bare, gets dressed piece by piece when it scrolls into view. */
+type Entrance = 'bare' | 'dressing' | 'done'
 const prefersReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 interface Props {
@@ -72,6 +77,37 @@ export function FittingRoom({ initial = DEFAULT_STATE, initialSlot = 'top' }: Pr
   const [saved, setSaved] = useState<SavedLook[]>(loadSaved)
   const [share, setShare] = useState<{ status: 'idle' | 'copied' | 'manual'; url: string }>({ status: 'idle', url: '' })
   const tiltRef = useRef<HTMLDivElement>(null)
+  const stageRef = useRef<HTMLDivElement>(null)
+  const [entrance, setEntrance] = useState<Entrance>(() =>
+    prefersReducedMotion() || typeof IntersectionObserver === 'undefined' ? 'done' : 'bare',
+  )
+  // Any interaction before the entrance plays skips straight to the dressed model.
+  const [entranceState, setEntranceState] = useState(state)
+  if (entranceState !== state) {
+    setEntranceState(state)
+    if (entrance === 'bare') setEntrance('done')
+  }
+
+  useEffect(() => {
+    if (entrance !== 'bare' || !stageRef.current) return
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return
+        io.disconnect()
+        setEntrance('dressing')
+      },
+      { threshold: 0.4 },
+    )
+    io.observe(stageRef.current)
+    return () => io.disconnect()
+  }, [entrance])
+
+  // Hand over to normal interaction once the last piece has landed.
+  useEffect(() => {
+    if (entrance !== 'dressing') return
+    const timer = window.setTimeout(() => setEntrance('done'), 1600)
+    return () => window.clearTimeout(timer)
+  }, [entrance])
   const drag = useRef<{ x: number; moved: boolean } | null>(null)
   const suppressClick = useRef(false)
 
@@ -190,6 +226,7 @@ export function FittingRoom({ initial = DEFAULT_STATE, initialSlot = 'top' }: Pr
           }}
         >
           <div
+            ref={stageRef}
             className={`relative h-[min(54svh,540px)] touch-pan-y overflow-hidden select-none lg:h-[min(80svh,820px)] ${darkStage ? 'text-bone' : 'text-ink'}`}
             style={{ background: `radial-gradient(120% 90% at 50% 30%, ${backdrop.from}, ${backdrop.to})`, transition: 'background 500ms' }}
           >
@@ -202,13 +239,22 @@ export function FittingRoom({ initial = DEFAULT_STATE, initialSlot = 'top' }: Pr
               </p>
             </div>
             <p className={`eyebrow absolute top-5 right-5 z-10 hidden text-[10px] sm:block ${darkStage ? 'text-bone/50' : 'text-ink/45'}`}>
-              {hovered ? `Click to change ${SLOTS.find((s) => s.id === hovered)!.label.toLowerCase()}` : 'Drag to turn · tap a piece'}
+              {entrance !== 'done' ? 'Dressing the model…' : hovered ? `Click to change ${SLOTS.find((s) => s.id === hovered)!.label.toLowerCase()}` : 'Drag to turn · tap a piece'}
             </p>
 
             <div className="absolute inset-0 flex items-end justify-center pt-14 pb-14 [perspective:1200px] sm:pb-16">
               <div ref={tiltRef} className="h-full transition-transform duration-500 ease-out-expo [transform:rotateY(var(--tilt,0deg))] [@media(hover:hover)]:will-change-transform">
                 <div className={`relative aspect-[2/5] h-full transition-transform duration-200 ease-in-out ${turning ? 'scale-x-0' : 'scale-x-100'}`}>
-                  <ModelFigure look={look} view={view} tone={state.tone} tuck={state.tuck && canTuck} onSlotClick={selectFromModel} onSlotHover={setHovered} className="h-full w-full" />
+                  <ModelFigure
+                    look={entrance === 'bare' ? BARE : look}
+                    dressing={entrance === 'dressing'}
+                    view={view}
+                    tone={state.tone}
+                    tuck={state.tuck && canTuck}
+                    onSlotClick={selectFromModel}
+                    onSlotHover={setHovered}
+                    className="h-full w-full"
+                  />
                   {SLOTS.map((s) => {
                     const pos = HOTSPOTS[s.id]
                     const active = activeSlot === s.id
@@ -220,7 +266,8 @@ export function FittingRoom({ initial = DEFAULT_STATE, initialSlot = 'top' }: Pr
                         onClick={() => setActiveSlot(s.id)}
                         aria-label={`${empty ? 'Add' : 'Change'} ${s.label.toLowerCase()}`}
                         aria-pressed={active}
-                        className="group/pin absolute z-10 -translate-x-1/2 -translate-y-1/2"
+                        tabIndex={entrance === 'done' ? undefined : -1}
+                        className={`group/pin absolute z-10 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-500 ${entrance === 'done' ? 'opacity-100' : 'pointer-events-none opacity-0'}`}
                         style={{ left: `${(pos.x / 400) * 100}%`, top: `${(pos.y / 1000) * 100}%` }}
                       >
                         {!active && <span aria-hidden="true" className="absolute inset-0 animate-ping rounded-full bg-bone/60 [animation-duration:2.4s] motion-reduce:hidden" />}

@@ -150,12 +150,19 @@
 .model-figure.is-interactive [data-slot]:hover {
   filter: drop-shadow(0 0 0.6px var(--color-signal)) drop-shadow(0 0 0.6px var(--color-signal));
 }
-.animate-layer-in {
-  animation: layer-in 320ms ease-out both;
+/*
+ * One animation for every garment layer. Swapping a piece just fades it in;
+ * the Fitting Room entrance sets --garment-* to drop pieces on one by one.
+ * (Changing the variables later never restarts a finished animation.)
+ */
+.garment-in {
+  animation: garment-in var(--garment-dur, 320ms) var(--ease-out-expo) var(--garment-delay, 0ms) both;
 }
-@keyframes layer-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes garment-in {
+  from {
+    opacity: 0;
+    transform: translateY(var(--garment-drop, 0px));
+  }
 }
 
 /* Skip rendering off-screen sections until they're near the viewport. */

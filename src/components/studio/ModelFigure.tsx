@@ -16,6 +16,8 @@ interface Props {
   /** Makes garments clickable (with hover outline). */
   onSlotClick?: (slot: Slot) => void
   onSlotHover?: (slot: Slot | null) => void
+  /** Entrance: pieces drop onto the model one after another (shoes first, headwear last). */
+  dressing?: boolean
   className?: string
   title?: string
 }
@@ -28,7 +30,7 @@ function resolve(look: Look, slot: Slot) {
   return { item, color }
 }
 
-export function ModelFigure({ look, view = 'front', tone = 'mannequin', tuck = false, onSlotClick, onSlotHover, className = '', title }: Props) {
+export function ModelFigure({ look, view = 'front', tone = 'mannequin', tuck = false, onSlotClick, onSlotHover, dressing = false, className = '', title }: Props) {
   const raw = useId().replace(/[^a-zA-Z0-9]/g, '')
   const ids: FigureIds = { shade: `${raw}s`, shadeBody: `${raw}b`, blur: `${raw}f`, twill: `${raw}t` }
 
@@ -57,9 +59,13 @@ export function ModelFigure({ look, view = 'front', tone = 'mannequin', tuck = f
   } as CSSProperties
 
   const interactive = !!onSlotClick
-  const layerProps = (slot: Slot, html: string) => ({
+  const DRESS_ORDER: Slot[] = ['shoes', 'bottom', 'top', 'layer', 'headwear']
+  const layerProps = (slot: Slot, html: string, extraDelay = 0) => ({
     'data-slot': slot,
-    className: 'animate-layer-in',
+    className: 'garment-in',
+    style: dressing
+      ? ({ '--garment-dur': '850ms', '--garment-delay': `${DRESS_ORDER.indexOf(slot) * 170 + extraDelay}ms`, '--garment-drop': '-48px' } as CSSProperties)
+      : undefined,
     onClick: interactive ? () => onSlotClick?.(slot) : undefined,
     onMouseEnter: interactive ? () => onSlotHover?.(slot) : undefined,
     onMouseLeave: interactive ? () => onSlotHover?.(null) : undefined,
@@ -100,7 +106,7 @@ export function ModelFigure({ look, view = 'front', tone = 'mannequin', tuck = f
       {bottom && <g key={`bottom-${bottom.item.id}-${view}`} {...layerProps('bottom', drawBottom(bottom.item.style, view, ids))} />}
       {top && <g key={`top-${top.item.id}-${tuck}-${view}`} {...layerProps('top', drawTop(top.item.style, view, ids, tuck, !!layer))} />}
       {layer && <g key={`layer-${layer.item.id}-${view}`} {...layerProps('layer', drawLayer(layer.item.style, view, ids))} />}
-      {top?.item.style === 'hoodie' && <g key={`hood-${view}`} {...layerProps('top', drawHood(view, ids, !!layer))} />}
+      {top?.item.style === 'hoodie' && <g key={`hood-${view}`} {...layerProps('top', drawHood(view, ids, !!layer), 250)} />}
       {head && <g key={`head-${head.item.id}-${view}`} {...layerProps('headwear', drawHeadwear(head.item.style, view, ids))} />}
     </svg>
   )
