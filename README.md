@@ -31,7 +31,7 @@ can be uploaded to any static host or sub-folder without rewrite rules.
 | Product page | Gallery (front / back / detail, click to zoom) that keeps the same view when you change colour, available sizes (information only), "Try it in the Fitting Room", details, related products. The colour is kept in the URL, so links can be shared. |
 | Shop / search | Search by name, filter by category, colour family and collection (New / Featured), sort by featured, newest or name, active-filter chips, empty state and reset. All state lives in the URL. Header search overlay with live results. |
 | Homepage | Announcement bar (configurable), sticky nav plus mobile menu, cinematic hero, category tiles, featured grid with category tabs, Fitting Room, new-arrivals editorial, brand story, newsletter (validation and success state, nothing sent), footer. |
-| Quality | Responsive from 360px up. Visible focus states, focus handling in dialogs, skip link. Respects `prefers-reduced-motion`. Branded fallback when an image fails to load. Placeholder pages for shipping, returns, contact, privacy and terms, so no footer link is dead. |
+| Quality | Responsive from 360px up. Visible focus states, focus handling in dialogs, skip link. Respects `prefers-reduced-motion`. Branded fallback when an image fails to load. Placeholder pages for contact, privacy and terms, so no footer link is dead. |
 
 ## Project structure
 
@@ -93,7 +93,7 @@ for every colour of a product, so the crossfade reads as a colour change rather 
   Each photo also has smaller `-640` / `-1080` (hero: `-1600`) versions for phones. When swapping in new photography, export the same sizes and update the `srcSet` entries in `src/data/site.ts`.
 - **Brand story copy, pillars, taglines, "Collection 01" naming:** original placeholder copy, not company history.
 - **Contact email, phone, address, Instagram handle:** shown as "to be confirmed" (`src/data/site.ts`).
-- **Shipping, returns, privacy and terms pages:** placeholder text (`src/pages/InfoPage.tsx`).
+- **Contact, privacy and terms pages:** placeholder text (`src/pages/InfoPage.tsx`).
 - **Logo:** typographic wordmark and an "EG" favicon made for the demo. Replace them with the official logo files.
 
 ## Known limitations

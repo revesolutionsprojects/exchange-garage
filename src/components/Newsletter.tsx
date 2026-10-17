@@ -35,7 +35,7 @@ export function Newsletter() {
           <h2 id="newsletter-title" className="display mt-4 text-[clamp(3rem,7vw,6.5rem)]">
             Get on <br /> the list.
           </h2>
-          <p className="mt-5 max-w-sm text-bone/65">Early access to drops, restocks and the occasional garage sale. No noise.</p>
+          <p className="mt-5 max-w-sm text-bone/65">Early access to new drops, colourways and lookbooks. No noise.</p>
         </div>
 
         <div className="lg:pb-3">

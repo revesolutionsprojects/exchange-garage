@@ -17,26 +17,6 @@ interface InfoPageDef {
  */
 export const INFO_PAGES: InfoPageDef[] = [
   {
-    slug: 'shipping',
-    title: 'Shipping',
-    group: 'help',
-    intro: 'Delivery options, timelines and costs will be listed here once confirmed.',
-    sections: [
-      { heading: 'Delivery areas', body: 'To be supplied by Exchange Garage — e.g. which cities and pin codes are served.' },
-      { heading: 'Timelines & charges', body: 'To be supplied — processing times, courier partners and any free-shipping threshold.' },
-    ],
-  },
-  {
-    slug: 'returns',
-    title: 'Returns & Exchanges',
-    group: 'help',
-    intro: 'The returns and exchange policy will be published here.',
-    sections: [
-      { heading: 'Eligibility', body: 'To be supplied — return window, item condition and any exclusions.' },
-      { heading: 'How to start a return', body: 'To be supplied — the process and contact channel for returns and size exchanges.' },
-    ],
-  },
-  {
     slug: 'contact',
     title: 'Contact',
     group: 'help',
@@ -61,8 +41,8 @@ export const INFO_PAGES: InfoPageDef[] = [
     slug: 'terms',
     title: 'Terms',
     group: 'legal',
-    intro: 'Terms of sale and use will be published here before launch.',
-    sections: [{ heading: 'In this demo', body: 'This is a showcase site. Products shown are placeholders and nothing can be purchased.' }],
+    intro: 'Terms of use will be published here before launch.',
+    sections: [{ heading: 'In this demo', body: 'This is a showcase site. The products, imagery and copy shown are placeholders.' }],
   },
 ]
 

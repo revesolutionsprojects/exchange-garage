@@ -42,16 +42,19 @@ export function Footer() {
             </ul>
           </nav>
 
-          <nav aria-label="Help" className="lg:col-span-2">
-            <h2 className={col}>Help</h2>
+          <nav aria-label="Explore" className="lg:col-span-2">
+            <h2 className={col}>Explore</h2>
             <ul className="mt-5 space-y-3">
-              {INFO_PAGES.filter((p) => p.group === 'help').map((p) => (
-                <li key={p.slug}>
-                  <Link to={`/info/${p.slug}`} className={link}>
-                    {p.title}
-                  </Link>
-                </li>
-              ))}
+              <li>
+                <Link to="/studio" className={link}>
+                  Fitting Room
+                </Link>
+              </li>
+              <li>
+                <Link to="/info/contact" className={link}>
+                  Contact
+                </Link>
+              </li>
             </ul>
           </nav>
 

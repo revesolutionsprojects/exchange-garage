@@ -131,17 +131,6 @@ export function ProductPage({ id, initialColor }: { id: string; initialColor: st
                   ))}
                 </ul>
               </Accordion>
-              <Accordion title="Shipping & returns">
-                Delivery and returns policies are still to be confirmed. See{' '}
-                <Link to="/info/shipping" className="underline underline-offset-2 hover:text-ink">
-                  shipping
-                </Link>{' '}
-                and{' '}
-                <Link to="/info/returns" className="underline underline-offset-2 hover:text-ink">
-                  returns
-                </Link>{' '}
-                for placeholders.
-              </Accordion>
             </div>
           </div>
         </div>
