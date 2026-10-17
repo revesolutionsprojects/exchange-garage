@@ -69,9 +69,12 @@ export function Footer() {
           </div>
         </div>
 
-        <p aria-hidden="true" className="display mt-20 overflow-hidden text-center text-[15.5vw] leading-[0.8] whitespace-nowrap text-bone/[0.06] select-none lg:text-[14.2vw]">
-          EXCHANGE GARAGE
-        </p>
+        {/* Sized from the container's width (cqw), not the window's, so it always fits edge to edge. */}
+        <div className="@container mt-20">
+          <p aria-hidden="true" className="display overflow-hidden text-center text-[14.4cqw] leading-[0.8] whitespace-nowrap text-bone/[0.06] select-none">
+            EXCHANGE GARAGE
+          </p>
+        </div>
 
         <div className="mt-8 flex flex-col gap-4 border-t border-bone/10 pt-6 text-[12px] text-bone/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} EXCHANGE GARAGE. All rights reserved. Showcase site — products shown are placeholders.</p>
