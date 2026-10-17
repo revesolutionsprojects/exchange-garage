@@ -33,6 +33,8 @@ export function CategorySection() {
               <Link to={`/shop?category=${c.id}`} className="group relative block aspect-[3/4] overflow-hidden bg-ink text-bone sm:aspect-[4/5] lg:aspect-[3/4.6]">
                 <SafeImage
                   src={c.image}
+                  srcSet={c.srcSet}
+                  sizes="(min-width: 1024px) 19vw, (min-width: 640px) 48vw, 72vw"
                   alt={categoryImageAlt[c.id]}
                   loading="lazy"
                   fallbackTone="dark"

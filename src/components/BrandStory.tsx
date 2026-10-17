@@ -16,7 +16,7 @@ export function BrandStory() {
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <div className="lg:col-span-5">
           <div className="relative aspect-[4/5] overflow-hidden bg-sand">
-            <SafeImage src={site.story.image} alt={site.story.imageAlt} loading="lazy" className="h-full w-full object-cover" />
+            <SafeImage src={site.story.image} srcSet={site.story.srcSet} sizes="(min-width: 1024px) 40vw, 100vw" alt={site.story.imageAlt} loading="lazy" className="h-full w-full object-cover" />
           </div>
           <p className="eyebrow mt-4 text-ink/45">Fig. 01 — The workshop mindset</p>
         </div>

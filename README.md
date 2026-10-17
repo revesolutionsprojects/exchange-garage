@@ -89,6 +89,8 @@ for every colour of a product, so the crossfade reads as a colour change rather 
   - `newsletter.webp` — photo-1551028719-00167b16eac5
 
   (Each is at `https://images.unsplash.com/<id>`.)
+
+  Each photo also has smaller `-640` / `-1080` (hero: `-1600`) versions for phones. When swapping in new photography, export the same sizes and update the `srcSet` entries in `src/data/site.ts`.
 - **Brand story copy, pillars, taglines, "Collection 01" naming:** original placeholder copy, not company history.
 - **Contact email, phone, address, Instagram handle:** shown as "to be confirmed" (`src/data/site.ts`).
 - **Shipping, returns, privacy and terms pages:** placeholder text (`src/pages/InfoPage.tsx`).

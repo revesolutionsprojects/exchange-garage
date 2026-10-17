@@ -46,7 +46,7 @@ export function ProductCard({ product, priority = false }: Props) {
           <Link
             to={tryOn}
             aria-label={`Try ${product.name} in ${color.name} on the model`}
-            className="absolute top-2 right-2 grid h-10 w-10 place-items-center rounded-full bg-bone/90 text-ink shadow-sm backdrop-blur transition-transform active:scale-95"
+            className="absolute top-2 right-2 grid h-10 w-10 place-items-center rounded-full bg-bone text-ink shadow-sm transition-transform active:scale-95"
           >
             <Shirt size={16} strokeWidth={1.7} />
           </Link>

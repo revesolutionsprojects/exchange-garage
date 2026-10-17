@@ -25,8 +25,8 @@ export function Newsletter() {
   }
 
   return (
-    <section aria-labelledby="newsletter-title" className="relative overflow-hidden bg-ink text-bone">
-      <SafeImage src={site.newsletter.image} alt="" loading="lazy" fallbackTone="dark" className="absolute inset-0 h-full w-full object-cover opacity-35" />
+    <section aria-labelledby="newsletter-title" className="cv-auto relative overflow-hidden bg-ink text-bone">
+      <SafeImage src={site.newsletter.image} srcSet={site.newsletter.srcSet} sizes="100vw" alt="" loading="lazy" fallbackTone="dark" className="absolute inset-0 h-full w-full object-cover opacity-35" />
       <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-r from-ink via-ink/85 to-ink/40" />
 
       <div className="relative mx-auto grid max-w-screen-2xl gap-10 px-4 py-24 sm:px-6 sm:py-28 lg:grid-cols-2 lg:items-end lg:px-10">

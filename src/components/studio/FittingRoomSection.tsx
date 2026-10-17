@@ -1,5 +1,6 @@
 import { useReveal } from '../../hooks/useReveal'
 import { Link } from '../../lib/router'
+import { LazyMount } from '../LazyMount'
 import { SectionHeading } from '../SectionHeading'
 import { FittingRoom } from './FittingRoom'
 
@@ -28,7 +29,10 @@ export function FittingRoomSection() {
           }
         />
         <div className="mt-10">
-          <FittingRoom />
+          {/* The model is a few hundred SVG nodes — build it only when the visitor gets close. */}
+          <LazyMount placeholderClassName="h-[1100px] lg:h-[880px]">
+            <FittingRoom />
+          </LazyMount>
         </div>
       </div>
     </section>

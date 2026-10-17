@@ -5,8 +5,23 @@
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#0b0b0b" />
-    <meta name="description" content="EXCHANGE GARAGE — streetwear built different, worn your way. Demo storefront." />
+    <meta name="color-scheme" content="light" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="description" content="EXCHANGE GARAGE — streetwear built different, worn your way. Showcase site." />
     <title>EXCHANGE GARAGE — Streetwear</title>
+    <script>
+      // Start the hero image download before the app boots, but only on the homepage.
+      if (!location.hash || location.hash === '#/' || location.hash === '#') {
+        var l = document.createElement('link')
+        l.rel = 'preload'
+        l.as = 'image'
+        l.href = 'images/hero-1600.webp'
+        l.setAttribute('imagesrcset', 'images/hero-640.webp 640w, images/hero-1080.webp 1080w, images/hero-1600.webp 1600w, images/hero.webp 2000w')
+        l.setAttribute('imagesizes', '100vw')
+        l.setAttribute('fetchpriority', 'high')
+        document.head.appendChild(l)
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

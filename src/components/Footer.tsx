@@ -5,7 +5,7 @@ import { INFO_PAGES } from '../pages/InfoPage'
 const year = new Date().getFullYear()
 
 export function Footer() {
-  const col = 'eyebrow text-bone/45'
+  const col = 'eyebrow text-bone/60'
   const link = 'text-sm text-bone/75 transition-colors hover:text-bone'
 
   return (
@@ -65,7 +65,7 @@ export function Footer() {
                 Instagram: <span className="text-bone/80">{site.contact.instagram}</span>
               </p>
             </address>
-            <p className="mt-4 text-[12px] text-bone/35">Contact details and social links are placeholders until confirmed by Exchange Garage.</p>
+            <p className="mt-4 text-[12px] text-bone/55">Contact details and social links are placeholders until confirmed by Exchange Garage.</p>
           </div>
         </div>
 
@@ -73,7 +73,7 @@ export function Footer() {
           EXCHANGE GARAGE
         </p>
 
-        <div className="mt-8 flex flex-col gap-4 border-t border-bone/10 pt-6 text-[12px] text-bone/45 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-8 flex flex-col gap-4 border-t border-bone/10 pt-6 text-[12px] text-bone/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} EXCHANGE GARAGE. All rights reserved. Showcase site — products shown are placeholders.</p>
           <ul className="flex gap-6">
             {INFO_PAGES.filter((p) => p.group === 'legal').map((p) => (

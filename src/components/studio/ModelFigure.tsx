@@ -1,6 +1,6 @@
 import { useId, type CSSProperties } from 'react'
 import { getStudioItem, TONES, type Look, type Slot } from '../../data/studio'
-import { drawBody, drawBottom, drawFloor, drawHeadwear, drawHood, drawLayer, drawShoes, drawTop, type FigureIds, type View } from './figure'
+import { drawBody, drawBottom, drawFloor, drawHeadwear, drawHood, drawLayer, drawShoes, drawTop, shadeFallbackVars, type FigureIds, type View } from './figure'
 
 function luminance(hex: string): number {
   const n = parseInt(hex.replace('#', ''), 16)
@@ -49,6 +49,11 @@ export function ModelFigure({ look, view = 'front', tone = 'mannequin', tuck = f
     '--c-bottom': bottom?.color.hex ?? '#000',
     '--thread': bottom && luminance(bottom.color.hex) < 0.2 ? '#9A8E78' : '#C8913F',
     '--c-shoes': shoes?.color.hex ?? '#000',
+    ...(head && shadeFallbackVars('--c-head', head.color.hex)),
+    ...(layer && shadeFallbackVars('--c-layer', layer.color.hex)),
+    ...(top && shadeFallbackVars('--c-top', top.color.hex)),
+    ...(bottom && shadeFallbackVars('--c-bottom', bottom.color.hex)),
+    ...(shoes && shadeFallbackVars('--c-shoes', shoes.color.hex)),
   } as CSSProperties
 
   const interactive = !!onSlotClick

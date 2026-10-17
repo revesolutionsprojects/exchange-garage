@@ -1,6 +1,15 @@
-@import '@fontsource/anton/400.css';
-@import '@fontsource-variable/inter-tight/index.css';
+/* Latin-only font subsets keep the CSS and font downloads small. */
+@import '@fontsource/anton/latin-400.css';
 @import 'tailwindcss';
+
+@font-face {
+  font-family: 'Inter Tight Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2') format('woff2-variations');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 
 @theme {
   --font-display: 'Anton', 'Impact', 'Arial Narrow', sans-serif;
@@ -40,7 +49,12 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
     scroll-behavior: smooth;
+    /* Reserve the scrollbar's space so opening a dialog doesn't shift the page (Windows/Linux). */
+    scrollbar-gutter: stable;
   }
   body {
     @apply bg-bone font-sans text-ink;
@@ -137,11 +151,17 @@
   filter: drop-shadow(0 0 0.6px var(--color-signal)) drop-shadow(0 0 0.6px var(--color-signal));
 }
 .animate-layer-in {
-  animation: layer-in 450ms var(--ease-out-expo) both;
+  animation: layer-in 320ms ease-out both;
 }
 @keyframes layer-in {
-  from { opacity: 0; transform: translateY(-6px); }
-  to { opacity: 1; transform: none; }
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Skip rendering off-screen sections until they're near the viewport. */
+.cv-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
 }
 
 /* Scroll reveal — elements start hidden only when JS has marked them. */

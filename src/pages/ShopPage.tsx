@@ -175,7 +175,7 @@ export function ShopPage({ route }: { route: Route }) {
               update({ q: e.target.value })
             }}
             placeholder="Search by name"
-            className="min-w-0 flex-1 bg-transparent py-3 text-sm outline-none placeholder:text-ink/35 [&::-webkit-search-cancel-button]:hidden"
+            className="min-w-0 flex-1 bg-transparent py-3 text-base outline-none sm:text-sm placeholder:text-ink/35 [&::-webkit-search-cancel-button]:hidden"
           />
           {searchText && (
             <button type="button" aria-label="Clear search" onClick={() => (setSearchText(''), update({ q: '' }))} className="grid h-8 w-8 place-items-center text-ink/50 hover:text-ink">
@@ -211,7 +211,7 @@ export function ShopPage({ route }: { route: Route }) {
               <select
                 value={filters.sort}
                 onChange={(e) => update({ sort: e.target.value as SortKey })}
-                className="cursor-pointer border border-ink/20 bg-transparent px-3 py-2.5 text-[13px] font-medium outline-none focus-visible:border-ink"
+                className="cursor-pointer border border-ink/20 bg-transparent px-3 py-2.5 text-base font-medium sm:text-[13px] outline-none focus-visible:border-ink"
               >
                 {SORT_OPTIONS.map((s) => (
                   <option key={s.value} value={s.value}>

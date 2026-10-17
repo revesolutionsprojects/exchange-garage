@@ -20,7 +20,7 @@ function Marquee() {
   )
   return (
     <div className="flex overflow-hidden border-y border-bone/10 py-5 select-none">
-      <div className="flex animate-marquee motion-reduce:animate-none">
+      <div className="flex animate-marquee will-change-transform motion-reduce:animate-none">
         {row(false)}
         {row(true)}
       </div>
@@ -36,17 +36,17 @@ export function NewArrivals() {
     .slice(0, 4)
 
   return (
-    <section aria-labelledby="drop-title" className="overflow-hidden bg-ink text-bone">
+    <section aria-labelledby="drop-title" className="cv-auto overflow-hidden bg-ink text-bone">
       <Marquee />
       <div ref={ref} className="mx-auto grid max-w-screen-2xl gap-12 px-4 py-20 sm:px-6 sm:py-28 lg:grid-cols-12 lg:gap-10 lg:px-10">
         <div className="relative lg:col-span-7">
           <div className="relative aspect-[4/5] overflow-hidden sm:aspect-[5/4] lg:aspect-[4/4.3]">
-            <SafeImage src={site.newDrop.image} alt={site.newDrop.imageAlt} loading="lazy" fallbackTone="dark" className="h-full w-full object-cover object-[50%_35%]" />
+            <SafeImage src={site.newDrop.image} srcSet={site.newDrop.srcSet} sizes="(min-width: 1024px) 55vw, 100vw" alt={site.newDrop.imageAlt} loading="lazy" fallbackTone="dark" className="h-full w-full object-cover object-[50%_35%]" />
             <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-ink/60 to-transparent" />
             <p className="eyebrow absolute bottom-5 left-5 text-bone/80">Collection 01 — Editorial</p>
           </div>
           <div className="absolute -right-2 -bottom-10 hidden w-[34%] border-[6px] border-ink sm:block lg:-right-12">
-            <SafeImage src={site.newDrop.sideImage} alt={site.newDrop.sideImageAlt} loading="lazy" fallbackTone="dark" className="aspect-[3/4] w-full object-cover" />
+            <SafeImage src={site.newDrop.sideImage} srcSet={site.newDrop.sideSrcSet} sizes="(min-width: 1024px) 20vw, 34vw" alt={site.newDrop.sideImageAlt} loading="lazy" fallbackTone="dark" className="aspect-[3/4] w-full object-cover" />
           </div>
         </div>
 

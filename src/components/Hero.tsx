@@ -9,6 +9,8 @@ export function Hero({ onScrollNext }: { onScrollNext: () => void }) {
     <section aria-labelledby="hero-title" className="relative -mt-16 flex min-h-[640px] items-end overflow-hidden bg-ink text-bone h-[calc(100svh-2rem)] max-h-[1100px]">
       <SafeImage
         src={hero.image}
+        srcSet={hero.srcSet}
+        sizes="100vw"
         alt={hero.imageAlt}
         fetchPriority="high"
         fallbackTone="dark"

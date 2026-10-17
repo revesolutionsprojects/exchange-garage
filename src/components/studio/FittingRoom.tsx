@@ -206,7 +206,7 @@ export function FittingRoom({ initial = DEFAULT_STATE, initialSlot = 'top' }: Pr
             </p>
 
             <div className="absolute inset-0 flex items-end justify-center pt-14 pb-14 [perspective:1200px] sm:pb-16">
-              <div ref={tiltRef} className="h-full transition-transform duration-500 ease-out-expo [transform:rotateY(var(--tilt,0deg))]">
+              <div ref={tiltRef} className="h-full transition-transform duration-500 ease-out-expo [transform:rotateY(var(--tilt,0deg))] [@media(hover:hover)]:will-change-transform">
                 <div className={`relative aspect-[2/5] h-full transition-transform duration-200 ease-in-out ${turning ? 'scale-x-0' : 'scale-x-100'}`}>
                   <ModelFigure look={look} view={view} tone={state.tone} tuck={state.tuck && canTuck} onSlotClick={selectFromModel} onSlotHover={setHovered} className="h-full w-full" />
                   {SLOTS.map((s) => {
@@ -454,7 +454,7 @@ export function FittingRoom({ initial = DEFAULT_STATE, initialSlot = 'top' }: Pr
               <label htmlFor="share-url" className="text-[12px] text-ink/60">
                 Copy this link:
               </label>
-              <input id="share-url" readOnly value={share.url} onFocus={(e) => e.target.select()} className="mt-1 w-full border border-ink/20 bg-transparent px-3 py-2 text-[12px]" />
+              <input id="share-url" readOnly value={share.url} onFocus={(e) => e.target.select()} className="mt-1 w-full border border-ink/20 bg-transparent px-3 py-2 text-base sm:text-[12px]" />
             </div>
           )}
           <p className="sr-only" aria-live="polite">

@@ -27,11 +27,37 @@ export interface FigureIds {
 const mirror = (d: string) => d.replace(/(-?\d+(?:\.\d+)?),(-?\d+(?:\.\d+)?)/g, (_, x, y) => `${400 - Number(x)},${y}`)
 const pair = (d: string) => [d, mirror(d)]
 
+/*
+ * Shades are derived with color-mix() so they follow the animated base colour.
+ * Each is wrapped in a var() fallback: browsers without color-mix() (iOS < 16.2,
+ * older Android) get precomputed values from shadeFallbackVars() instead.
+ * Any new percentage used below must also be added to SHADES.
+ */
+export const SHADES = { dark: [6, 8, 10, 12, 14, 20, 22, 25, 30, 35, 38], light: [25, 30, 35, 40, 50] }
+
 const base = (v: ColorVar) => `var(${v})`
-const dark = (v: ColorVar, pct: number) => `color-mix(in srgb, var(${v}), #000 ${pct}%)`
-const light = (v: ColorVar, pct: number) => `color-mix(in srgb, var(${v}), #fff ${pct}%)`
+const dark = (v: ColorVar, pct: number) => `var(${v}-d${pct}, color-mix(in srgb, var(${v}), #000 ${pct}%))`
+const light = (v: ColorVar, pct: number) => `var(${v}-l${pct}, color-mix(in srgb, var(${v}), #fff ${pct}%))`
 /** Mixing toward mid-grey keeps seams visible on both black and white fabric. */
-const seam = (v: ColorVar) => `color-mix(in srgb, var(${v}) 62%, #7a7a7a)`
+const seam = (v: ColorVar) => `var(${v}-seam, color-mix(in srgb, var(${v}) 62%, #7a7a7a))`
+
+function mixHex(a: string, b: string, t: number): string {
+  const n = (h: string) => parseInt(h.replace('#', ''), 16)
+  const [x, y] = [n(a), n(b)]
+  const ch = (shift: number) => Math.round(((x >> shift) & 255) + (((y >> shift) & 255) - ((x >> shift) & 255)) * t)
+  return `rgb(${ch(16)}, ${ch(8)}, ${ch(0)})`
+}
+
+export const SUPPORTS_COLOR_MIX = typeof CSS !== 'undefined' && CSS.supports?.('color', 'color-mix(in srgb, red, blue)')
+
+/** Precomputed shade variables for browsers without color-mix(). Empty when it's supported. */
+export function shadeFallbackVars(v: ColorVar, hex: string): Record<string, string> {
+  if (SUPPORTS_COLOR_MIX) return {}
+  const out: Record<string, string> = { [`${v}-seam`]: mixHex(hex, '#7a7a7a', 0.38) }
+  for (const p of SHADES.dark) out[`${v}-d${p}`] = mixHex(hex, '#000000', p / 100)
+  for (const p of SHADES.light) out[`${v}-l${p}`] = mixHex(hex, '#ffffff', p / 100)
+  return out
+}
 
 const METAL = '#A9A59C'
 const METAL_DARK = '#6E6A62'
@@ -49,14 +75,25 @@ function panel(d: string, v: ColorVar, ids: FigureIds, fill = base(v)) {
   return fillPath(d, fill) + `<path d="${d}" fill="url(#${ids.shade})"/>` + line(d, seam(v), 0.8, 'opacity=".55"')
 }
 
-function folds(ids: FigureIds, paths: string[], strength = 0.16) {
-  return `<g filter="url(#${ids.blur})">${paths.map((d) => line(d, '#000', 7, `opacity="${strength}"`)).join('')}</g>`
+/**
+ * Soft fold shadows faked with stacked translucent strokes. (A blur filter
+ * looks similar but has to be re-run on every frame of a colour fade, which
+ * stutters on phones.)
+ */
+function folds(_ids: FigureIds, paths: string[], strength = 0.16) {
+  // One path per stroke weight (rather than per fold) keeps the SVG node count low.
+  const d = paths.join(' ')
+  return (
+    line(d, '#000', 14, `opacity="${(strength * 0.3).toFixed(3)}"`) +
+    line(d, '#000', 8, `opacity="${(strength * 0.35).toFixed(3)}"`) +
+    line(d, '#000', 4, `opacity="${(strength * 0.3).toFixed(3)}"`)
+  )
 }
 
 function ribLines(x1: number, x2: number, y1: number, y2: number, v: ColorVar, step = 5) {
-  let out = ''
-  for (let x = x1 + step / 2; x < x2; x += step) out += line(`M${x},${y1 + 2} L${x},${y2 - 2}`, dark(v, 22), 0.6, 'opacity=".7"')
-  return out
+  let d = ''
+  for (let x = x1 + step / 2; x < x2; x += step) d += `M${x},${y1 + 2} L${x},${y2 - 2} `
+  return line(d.trim(), dark(v, 22), 0.6, 'opacity=".7"')
 }
 
 function snap(cx: number, cy: number, r = 3.2) {
@@ -273,7 +310,7 @@ export function drawBottom(style: GarmentStyle, view: View, ids: FigureIds): str
   const d = BOTTOMS[kind]
   const thread = kind === 'jean' ? 'var(--thread)' : seam(v)
   // Shadowed gusset so skin never shows between the legs.
-  let out = fillPath('M193,516 L207,516 L209,780 L191,780 Z', dark(v, 30)) + panel(d, v, ids)
+  let out = fillPath('M193,516 L207,516 L205,662 L195,662 Z', dark(v, 14)) + panel(d, v, ids)
   if (kind === 'jean') out += `<path d="${d}" fill="url(#${ids.twill})"/>`
   out += folds(ids, ['M150,700 C160,712 176,714 188,708', 'M250,700 C240,712 224,714 212,708', 'M146,840 C160,852 176,852 190,846', 'M254,840 C240,852 224,852 210,846', 'M188,560 C182,640 176,720 172,800', 'M212,560 C218,640 224,720 228,800'], 0.13)
 

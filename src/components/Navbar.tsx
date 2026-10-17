@@ -49,8 +49,8 @@ export function Navbar() {
   return (
     <>
       <header
-        className={`sticky top-0 z-40 text-bone transition-[background-color,border-color,backdrop-filter] duration-500 ${
-          overHero ? 'border-b border-transparent bg-transparent' : 'border-b border-bone/10 bg-ink/95 backdrop-blur-md'
+        className={`sticky top-0 z-40 text-bone transition-[background-color,border-color] duration-500 ${
+          overHero ? 'border-b border-transparent bg-transparent' : 'border-b border-bone/10 bg-ink/[0.97]'
         }`}
       >
         <nav aria-label="Primary" className="mx-auto grid h-16 max-w-screen-2xl grid-cols-[1fr_auto_1fr] items-center px-4 sm:px-6 lg:px-10">
@@ -58,13 +58,13 @@ export function Navbar() {
             <button type="button" className={`${iconBtn} -ml-2 lg:hidden`} aria-label="Open menu" aria-expanded={menuOpen} onClick={() => setMenuOpen(true)}>
               <Menu size={20} strokeWidth={1.6} />
             </button>
-            <Link to="/" className="hidden lg:block" aria-label="Exchange Garage — home">
+            <Link to="/" className="hidden lg:block">
               <Wordmark />
             </Link>
           </div>
 
           <div className="flex justify-center">
-          <Link to="/" className="lg:hidden" aria-label="Exchange Garage — home">
+          <Link to="/" className="lg:hidden">
             <Wordmark className="text-[19px]!" />
           </Link>
           <ul className="hidden items-center gap-7 xl:gap-8 lg:flex">

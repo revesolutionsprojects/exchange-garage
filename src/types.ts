@@ -54,6 +54,7 @@ export interface Category {
   /** Short line shown on the category tile. */
   tagline: string
   image: string
+  srcSet?: string
 }
 
 export interface CartItem {
